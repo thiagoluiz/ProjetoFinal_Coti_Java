@@ -9,4 +9,7 @@ import br.com.cotiinformatica.entities.Funcionario;
 public interface IFuncionarioRepository extends CrudRepository<Funcionario, Integer>  {
 	@Query("select f from Funcionario f where f.cpf=:pCPF ")
 	public boolean findByCPF(@Param("pCPF") String cpf);
+	
+	@Query("select f from Funcionario f where f.idFuncionario=:pIdFuncionario ")
+	public Funcionario ObterFuncionario(@Param("pIdFuncionario") Integer id);
 }

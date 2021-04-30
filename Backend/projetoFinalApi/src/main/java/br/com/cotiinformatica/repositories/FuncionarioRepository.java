@@ -3,8 +3,10 @@ package br.com.cotiinformatica.repositories;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import br.com.cotiinformatica.entities.Empresa;
 import br.com.cotiinformatica.entities.Funcionario;
 import br.com.cotiinformatica.interfaces.IFuncionarioRepository;
 
@@ -25,14 +27,18 @@ public class FuncionarioRepository {
 		_funcionarioRepository.delete(funcionario);
 	}
 	
-//	//método para buscar 1 conta pelo id
-//	public Funcionario findById(Integer id) throws Exception {
-//		return _funcionarioRepository.findById(id).get();
-//	}	
-//	
-//	public boolean findByCpf(String cpf) throws Exception
-//	{
-//		return _funcionarioRepository.findByCPF(cpf);
-//	}
+	public Funcionario ObterEmpresa(@Param("pIdEmpresa") Integer idFuncionario) throws Exception
+	{
+		return _funcionarioRepository.ObterFuncionario(idFuncionario);
+	}	
+	
+	public Funcionario findById(Integer id) throws Exception {
+		return _funcionarioRepository.findById(id).get();
+	}	
+	
+	public boolean findByCpf(String cpf) throws Exception
+	{
+		return _funcionarioRepository.findByCPF(cpf);
+	}
 
 }

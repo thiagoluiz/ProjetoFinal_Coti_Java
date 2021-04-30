@@ -9,7 +9,9 @@ public class EdicaoFuncionarioDTO {
 	private String  cpf;	
 	private Date    dataAdmissao;
 	private double  salario;
+	private Integer idEmpresa;
 	
+
 	public Integer getIdFuncionario() {
 		return idFuncionario;
 	}
@@ -41,6 +43,11 @@ public class EdicaoFuncionarioDTO {
 		this.salario = salario;
 	}
 	
-	
+	public Integer getIdEmpresa() {
+		return idEmpresa;
+	}
+	public void setIdEmpresa(Integer idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}	
 
 }
