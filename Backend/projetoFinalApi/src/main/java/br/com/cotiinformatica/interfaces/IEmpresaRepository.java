@@ -8,10 +8,10 @@ import br.com.cotiinformatica.entities.Empresa;
 
 public interface IEmpresaRepository extends CrudRepository<Empresa, Integer>  {
 	@Query("select e from Empresa e where e.cnpj = :pCNPJ")
-	public boolean findByCNPJ(@Param("pCNPJ") String cnpj);
+	public Empresa findByCNPJ(@Param("pCNPJ") String cnpj);
 	
 	@Query("select e from Empresa e where e.razaoSocial=:pRazaoSocial")
-	public boolean findByRazaoSocial(@Param("pRazaoSocial") String razaoSocial);
+	public Empresa findByRazaoSocial(@Param("pRazaoSocial") String razaoSocial);
 	
 	@Query("select e from Empresa e where e.idEmpresa = :pIdEmpresa")
 	public Empresa ObterEmpresa(@Param("pIdEmpresa") Integer idEmpresa);

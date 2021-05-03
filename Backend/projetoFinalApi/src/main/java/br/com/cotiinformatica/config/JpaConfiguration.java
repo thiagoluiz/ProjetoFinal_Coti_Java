@@ -37,5 +37,7 @@ public class JpaConfiguration {
 
 		return transactionManager;
 	}
-	
+
 }
+
+

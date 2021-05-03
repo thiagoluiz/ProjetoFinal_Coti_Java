@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import br.com.cotiinformatica.entities.Funcionario;
 import br.com.cotiinformatica.interfaces.IEmpresaRepository;
 import br.com.cotiinformatica.interfaces.IFuncionarioRepository;
 import br.com.cotiinformatica.validations.FuncionarioCadastroValidation;
+import br.com.cotiinformatica.validations.FuncionarioEdicaoValidation;
 
 @Controller
 public class FuncionarioController {
@@ -32,7 +34,8 @@ public class FuncionarioController {
 	private IEmpresaRepository _empresaRepository;
 
 	private static final String ENDPOINT = "/api/funcionarios";
-
+	
+	@CrossOrigin
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<String>> InserirFuncionario(@RequestBody CadastroFuncionarioDTO dto) {
@@ -44,8 +47,9 @@ public class FuncionarioController {
 				throw new Exception("O CPF informado já encontra-se cadastrado.");
 			}
 						
+			mensagens = FuncionarioCadastroValidation.validate(dto);
+			
 			if(mensagens.size() == 0) {
-				mensagens = FuncionarioCadastroValidation.validate(dto);
 				
 				Empresa empresa = _empresaRepository.ObterEmpresa(dto.getIdEmpresa());	
 				
@@ -80,12 +84,20 @@ public class FuncionarioController {
 		}
 	}
 
-	
+	@CrossOrigin
+	@RequestMapping(value = ENDPOINT, method = RequestMethod.PUT)
+	@ResponseBody
 	public ResponseEntity<List<String>> EditarFuncionario(@RequestBody EdicaoFuncionarioDTO dto)
 	{
 		List<String> mensagens = new ArrayList<String>();
 		
 		try {
+			
+			if(!_funcionarioRepository.findByCPF(dto.getCpf())) {					
+				throw new Exception("O CPF informado já encontra-se cadastrado.");
+			}
+						
+			mensagens = FuncionarioEdicaoValidation.validate(dto);			
 			
 			Empresa empresa = _empresaRepository.ObterEmpresa(dto.getIdEmpresa());	
 			
@@ -116,6 +128,9 @@ public class FuncionarioController {
 		}
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = ENDPOINT + "/{id}", method = RequestMethod.DELETE)
+	@ResponseBody	
 	public ResponseEntity<List<String>> ExcluirFuncionario(@PathVariable("id") Integer id)
 	{
 		
@@ -143,6 +158,9 @@ public class FuncionarioController {
 		}
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = ENDPOINT, method = RequestMethod.GET)
+	@ResponseBody 	
 	public List<ConsultaFuncionarioDTO> consultarFuncionario()
 	{
 		try

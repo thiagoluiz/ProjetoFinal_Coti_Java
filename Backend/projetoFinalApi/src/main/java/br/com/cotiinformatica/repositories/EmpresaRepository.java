@@ -29,12 +29,12 @@ public class EmpresaRepository {
 	}	
 	
 	
-	public boolean findByCNPJ(String cnpj) throws Exception
+	public Empresa findByCNPJ(String cnpj) throws Exception
 	{
 		return _empresaRepository.findByCNPJ(cnpj);
 	}
 	
-	public boolean findByRazaoSocial(String razaoSocial) throws Exception 
+	public Empresa findByRazaoSocial(String razaoSocial) throws Exception 
 	{
 		return _empresaRepository.findByRazaoSocial(razaoSocial);
 	}

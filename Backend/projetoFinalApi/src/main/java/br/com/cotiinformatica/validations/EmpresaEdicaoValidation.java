@@ -3,11 +3,11 @@ package br.com.cotiinformatica.validations;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cotiinformatica.dto.CadastroEmpresaDTO;
+import br.com.cotiinformatica.dto.EdicaoEmpresaDTO;
 
-public class EmpresaCadastroValidation {
+public class EmpresaEdicaoValidation {
 
-	public static List<String> validate(CadastroEmpresaDTO dto) {
+	public static List<String> validate(EdicaoEmpresaDTO dto) {
 		List<String> mensagens = new ArrayList<String>();
 
 		// verificando se o campo nome não foi preenchido
@@ -37,5 +37,4 @@ public class EmpresaCadastroValidation {
 		
 		return mensagens;
 	}
-
 }
