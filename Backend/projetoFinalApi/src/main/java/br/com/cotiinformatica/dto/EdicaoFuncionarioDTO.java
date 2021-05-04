@@ -11,7 +11,6 @@ public class EdicaoFuncionarioDTO {
 	private double  salario;
 	private Integer idEmpresa;
 	
-
 	public Integer getIdFuncionario() {
 		return idFuncionario;
 	}

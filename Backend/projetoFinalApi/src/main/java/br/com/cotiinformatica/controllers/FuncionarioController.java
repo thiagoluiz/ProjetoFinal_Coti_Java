@@ -43,7 +43,7 @@ public class FuncionarioController {
 		List<String> mensagens = new ArrayList<String>();
 		try 
 		{
-			if(!_funcionarioRepository.findByCPF(dto.getCpf())) {					
+			if(_funcionarioRepository.findByCPF(dto.getCpf()) != null) {					
 				throw new Exception("O CPF informado já encontra-se cadastrado.");
 			}
 						
@@ -52,6 +52,11 @@ public class FuncionarioController {
 			if(mensagens.size() == 0) {
 				
 				Empresa empresa = _empresaRepository.ObterEmpresa(dto.getIdEmpresa());	
+				
+				if (empresa == null)
+				{
+					throw new Exception("A empresa informada não foi cadastrada.");
+				}
 				
 				Funcionario funcionario = new Funcionario();
 				funcionario.setCpf(dto.getCpf());
@@ -92,11 +97,7 @@ public class FuncionarioController {
 		List<String> mensagens = new ArrayList<String>();
 		
 		try {
-			
-			if(!_funcionarioRepository.findByCPF(dto.getCpf())) {					
-				throw new Exception("O CPF informado já encontra-se cadastrado.");
-			}
-						
+									
 			mensagens = FuncionarioEdicaoValidation.validate(dto);			
 			
 			Empresa empresa = _empresaRepository.ObterEmpresa(dto.getIdEmpresa());	
@@ -140,6 +141,11 @@ public class FuncionarioController {
 			
 			Funcionario funcionario = _funcionarioRepository.ObterFuncionario(id);
 			
+			if (funcionario == null)
+			{
+				throw new Exception("A Funcionário informado não foi encontrado.");					
+			}
+			
 			_funcionarioRepository.delete(funcionario);
 			
 			mensagens.add("Funcionario excluído com sucesso.");
@@ -175,6 +181,7 @@ public class FuncionarioController {
 				dto.setIdFuncionario(funcionario.getIdFuncionario());
 				dto.setNome(funcionario.getNome());
 				dto.setSalario(funcionario.getSalario());
+				dto.setEmpresa(funcionario.getEmpresa());
 				lista.add(dto);
 			}
 			

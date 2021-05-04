@@ -36,7 +36,7 @@ public class Funcionario {
 	private double  salario;
 	
 	@ManyToOne // Muitos Funcionários para 1 Empresa
-	@JoinColumn(name = "IDUSUARIO")	
+	@JoinColumn(name = "IDEMPRESA")	
 	private Empresa empresa;
 	
 	public Funcionario() {

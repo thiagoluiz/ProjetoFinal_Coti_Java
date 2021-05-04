@@ -2,6 +2,8 @@ package br.com.cotiinformatica.dto;
 
 import java.util.Date;
 
+import br.com.cotiinformatica.entities.Empresa;
+
 public class ConsultaFuncionarioDTO {
 
 	private Integer idFuncionario;
@@ -9,6 +11,7 @@ public class ConsultaFuncionarioDTO {
 	private String cpf;
 	private Date dataAdmissao;
 	private double salario;
+	private Empresa empresa;
 	
 	public Integer getIdFuncionario() {
 		return idFuncionario;
@@ -41,6 +44,11 @@ public class ConsultaFuncionarioDTO {
 		this.salario = salario;
 	}
 	
-	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}	
 
 }

@@ -19,6 +19,7 @@ import br.com.cotiinformatica.dto.ConsultaEmpresaDTO;
 import br.com.cotiinformatica.dto.EdicaoEmpresaDTO;
 import br.com.cotiinformatica.entities.Empresa;
 import br.com.cotiinformatica.interfaces.IEmpresaRepository;
+import br.com.cotiinformatica.interfaces.IFuncionarioRepository;
 import br.com.cotiinformatica.validations.EmpresaCadastroValidation;
 import br.com.cotiinformatica.validations.EmpresaEdicaoValidation;
 
@@ -27,6 +28,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private IEmpresaRepository _empresaRepository;
+	
+	@Autowired
+	private IFuncionarioRepository _funcionarioRepository;
 
 	private static final String ENDPOINT = "/api/empresas";
 
@@ -90,17 +94,7 @@ public class EmpresaController {
 		List<String> mensagens = new ArrayList<String>();
 		
 		try {
-			
-			if (_empresaRepository.findByCNPJ(dto.getCnpj()) != null )
-			{
-				throw new Exception("O CNPJ informado já encontra-se cadastrado.");
-			}
-			
-			if (_empresaRepository.findByRazaoSocial(dto.getRazaoSocial()) != null)
-			{
-				throw new Exception("A Razão social informada já encontra-se cadastrada.");
-			}
-			
+						
 			mensagens = EmpresaEdicaoValidation.validate(dto);			
 			
 			Empresa empresa = new Empresa();
@@ -113,7 +107,7 @@ public class EmpresaController {
 			
 			_empresaRepository.save(empresa);
 			
-			mensagens.add("Empresa com sucesso.");
+			mensagens.add("Empresa cadastrada com sucesso.");
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
@@ -139,6 +133,17 @@ public class EmpresaController {
 		try {
 			
 			Empresa empresa = _empresaRepository.ObterEmpresa(id);
+			
+			if (empresa == null)
+			{
+				throw new Exception("A Empresa informada não foi encontrada.");					
+			}
+			
+			if  (_funcionarioRepository.FuncionarioVinculadoEmpresa(id) > 0)
+			{
+				throw new Exception("A Empresa não pode ser excluida pois está vinculada a um ou mais funcionarios.");				
+			}
+
 			
 			_empresaRepository.delete(empresa);
 			

@@ -36,9 +36,15 @@ public class FuncionarioRepository {
 		return _funcionarioRepository.findById(id).get();
 	}	
 	
-	public boolean findByCpf(String cpf) throws Exception
+	public Funcionario findByCpf(String cpf) throws Exception
 	{
 		return _funcionarioRepository.findByCPF(cpf);
 	}
+	
+	public Integer FuncionarioVinculadoEmpresa(Integer idEmpresa) throws Exception
+	{
+		return _funcionarioRepository.FuncionarioVinculadoEmpresa(idEmpresa);
+	}
+	
 
 }
