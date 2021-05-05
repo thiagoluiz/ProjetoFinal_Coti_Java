@@ -55,6 +55,11 @@ public class Funcionario {
 		this.empresa = empresa;
 	}
 	
+	public Funcionario(Integer idEmpresa)
+	{
+		this.empresa.setIdEmpresa(idEmpresa);;
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
