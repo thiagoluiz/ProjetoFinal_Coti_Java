@@ -27,7 +27,7 @@ public class FuncionarioRepository {
 		_funcionarioRepository.delete(funcionario);
 	}
 	
-	public Funcionario ObterEmpresa(@Param("pIdEmpresa") Integer idFuncionario) throws Exception
+	public Funcionario ObterFuncionarioPorEmpresa(@Param("pIdEmpresa") Integer idFuncionario) throws Exception
 	{
 		return _funcionarioRepository.ObterFuncionario(idFuncionario);
 	}	

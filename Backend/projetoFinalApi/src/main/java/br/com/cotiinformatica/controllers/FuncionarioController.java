@@ -113,7 +113,7 @@ public class FuncionarioController {
 			
 			_funcionarioRepository.save(funcionario);
 			
-			mensagens.add("Empresa com sucesso.");
+			mensagens.add("Funcionario Alterado com Sucesso.");
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
@@ -143,7 +143,12 @@ public class FuncionarioController {
 			
 			if (funcionario == null)
 			{
-				throw new Exception("A Funcionário informado não foi encontrado.");					
+				throw new Exception("A Funcionário informado não informado.");					
+			}
+			
+			if (funcionario.getIdFuncionario() == 0)
+			{
+				throw new Exception("A Funcionário não encontrado.");	
 			}
 			
 			_funcionarioRepository.delete(funcionario);
